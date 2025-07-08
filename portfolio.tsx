@@ -17,7 +17,7 @@
 //       title: "Food Delivery App",
 //       description:
 //         "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-        
+
 //       Image:"/header_img.png?height=300&width=500",
 //       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
 //       github: "https://github.com/priyanshuu01/Food-Delivery-Website",
@@ -375,15 +375,12 @@
 //   )
 // }
 
-
-
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowRight, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -391,11 +388,39 @@ import { Badge } from "@/components/ui/badge"
 export default function Portfolio() {
   const [activeProject, setActiveProject] = useState(0)
 
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+  })
+
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    alert("Form submitted!\n" + JSON.stringify(formData, null, 2))
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      message: '',
+    })
+  }
+
   const projects = [
     {
       title: "Food Delivery App",
-      description:
-        "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
+      description: "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
       image: "/header_img.png",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       github: "https://github.com/priyanshuu01/Food-Delivery-Website",
@@ -403,8 +428,7 @@ export default function Portfolio() {
     },
     {
       title: "Task Management App",
-      description:
-        "Collaborative project management tool with real-time updates, team collaboration, and progress tracking.",
+      description: "Collaborative project management tool with real-time updates, team collaboration, and progress tracking.",
       image: "/placeholder.svg",
       technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL"],
       github: "#",
@@ -412,8 +436,7 @@ export default function Portfolio() {
     },
     {
       title: "Weather Dashboard",
-      description:
-        "Beautiful weather application with location-based forecasts, interactive maps, and detailed analytics.",
+      description: "Beautiful weather application with location-based forecasts, interactive maps, and detailed analytics.",
       image: "/placeholder.svg",
       technologies: ["React", "API Integration", "Chart.js", "Tailwind"],
       github: "#",
@@ -422,17 +445,8 @@ export default function Portfolio() {
   ]
 
   const skills = [
-    "Html",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Python",
-    "Java",
-    "C",
-    "MongoDB",
-    "SQL",
-    "Git",
-    "Tailwind CSS",
+    "Html", "CSS", "JavaScript", "React", "Python", "Java", "C",
+    "MongoDB", "SQL", "Git", "Tailwind CSS",
   ]
 
   return (
@@ -453,7 +467,7 @@ export default function Portfolio() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section id="home" className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
           <div className="space-y-8">
@@ -489,25 +503,22 @@ export default function Portfolio() {
               </Button>
             </div>
           </div>
-           <div className="relative group w-fit mx-auto">
+          <div className="relative group w-fit mx-auto">
             <div className="relative w-72 h-72 rounded-full border-4 border-cyan-400 overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-300">
               <Image
                 src="/dp2.jpg"
                 alt="Profile"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
+                fill
+                className="rounded-full object-cover"
+                priority
               />
             </div>
-            {/* Glow scatter effect */}
-            {/* <div className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-40 blur-2xl transition duration-500 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-pink-500 animate-pulse" /> */}
           </div>
-        
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">{/*white*/}
+      {/* About */}
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-slate-900 mb-4">About Me</h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-12">
@@ -521,14 +532,6 @@ export default function Portfolio() {
               <p className="text-lg text-slate-700">
                 I also enjoy exploring new tools, contributing to open-source, and sharing insights with fellow developers.
               </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                
-                </div>
-                <div>
-                  
-                </div>
-              </div>
             </div>
             <div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Skills & Technologies</h3>
@@ -542,10 +545,10 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects */}
       <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Featured Projects</h2>
+          <h2 className="text-4xl font-bold text-slate-600 mb-4">Featured Projects</h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-12">
             Explore some of my latest work.
           </p>
@@ -586,7 +589,7 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Contact */}
       <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">Let's Work Together</h2>
@@ -618,40 +621,52 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* Contact Form - Static */}
-           <Card className="bg-white/10 border border-white/20 backdrop-blur-sm rounded-2xl">
-  <CardHeader>
-    <CardTitle className="text-white text-xl">Send a Message</CardTitle>
-  </CardHeader>
-  <CardContent className="space-y-4">
-    <div className="grid md:grid-cols-2 gap-4">
-      <input
-        type="text"
-        placeholder="First Name"
-        className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-    <input
-      type="email"
-      placeholder="Email"
-      className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-    />
-    <textarea
-      rows={4}
-      placeholder="Tell me about your project..."
-      className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-    />
-    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white text-base font-medium py-2 rounded-lg transition duration-200">
-      Send Message
-    </Button>
-  </CardContent>
-</Card>
-
+            {/* Conditionally render the form */}
+            {isClient ? (
+              <Card className="bg-white/10 border border-white/20 backdrop-blur-sm rounded-2xl">
+                <form onSubmit={handleSubmit}>
+                  <CardHeader>
+                    <CardTitle className="text-white text-xl">Send a Message</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <input
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        placeholder="First Name"
+                        className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                      <input
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        placeholder="Last Name"
+                        className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                    </div>
+                    <input
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Email"
+                      className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={4}
+                      placeholder="Tell me about your project..."
+                      className="w-full px-4 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                    />
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white text-base font-medium py-2 rounded-lg transition duration-200">
+                      Send Message
+                    </Button>
+                  </CardContent>
+                </form>
+              </Card>
+            ) : null}
           </div>
         </div>
       </section>
@@ -676,3 +691,4 @@ export default function Portfolio() {
     </div>
   )
 }
+
